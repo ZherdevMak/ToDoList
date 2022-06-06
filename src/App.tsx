@@ -8,7 +8,7 @@ function App() {
         {id: 1, title: "HTML", isDone: true},
         {id: 2, title: "CSS", isDone: true},
         {id: 3, title: "JS/TS", isDone: false},
-        {id: 4, title: "REACT", isDone: false},
+        {id: 4, title: "REACT/REDUX", isDone: false},
 
     ])
     const [filter, setFilter] = useState<FilterValuesType>('all')
