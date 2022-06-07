@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import {FilterValuesType} from "./App";
 import stl from './TodoList.module.css'
+import CheckBox from "./component/CheckBox";
 
 export type TaskType = {
     id: string,
@@ -35,14 +36,15 @@ const TodoList = (props: TodoListPropsType) => {
         }
     }
 
-    const changeIsDoneHandler = (Tid: string, e: ChangeEvent<HTMLInputElement>) => {
-        props.changeIsDone(Tid, e.currentTarget.checked)
+    const changeIsDoneHandler = (Tid: string, isDone:boolean) => {
+        props.changeIsDone(Tid,isDone)
     }
     const taskJsx = props.tasks.map(task => {
 
         return (
             <li key={task.id} className={task.isDone?stl.isDone:""}>
-                <input type='checkbox' checked={task.isDone} onChange={(e) => changeIsDoneHandler(task.id, e)}/>
+                <CheckBox isDone={task.isDone} callBack={(isDone)=>changeIsDoneHandler(task.id, isDone)}/>
+                {/*<input type='checkbox' checked={task.isDone} onChange={(e) => changeIsDoneHandler(task.id, e)}/>*/}
                 <span>{task.title}</span>
                 <button onClick={() => {
                     props.removeTask(task.id)
