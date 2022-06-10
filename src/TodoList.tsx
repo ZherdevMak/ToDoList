@@ -10,13 +10,15 @@ export type TaskType = {
 }
 
 export type TodoListPropsType = {
+
     title: string,
     tasks: Array<TaskType>
     removeTask: (taskID: string) => void
-    changeTodoListFilter: (filter: FilterValuesType) => void
-    changeIsDone: (id: string, isDone: boolean) => void
+    changeTodoListFilter: (TodoListID: string,filter: FilterValuesType) => void
+    changeIsDone: (Tid:string, isDone: boolean) => void
     addTask: (title: string) => void
     filter: FilterValuesType
+    TodoListID: string
 }
 
 const TodoList = (props: TodoListPropsType) => {
@@ -66,15 +68,15 @@ const TodoList = (props: TodoListPropsType) => {
                 <div>{taskJsx}</div>
                 <div>
                     <button className={props.filter === 'all' ? stl.activeFilter: ''} onClick={() => {
-                        props.changeTodoListFilter('all')
+                        props.changeTodoListFilter(props.TodoListID, 'all')
                     }}>All
                     </button>
                     <button className={props.filter === 'active' ? stl.activeFilter: ''} onClick={() => {
-                        props.changeTodoListFilter('active')
+                        props.changeTodoListFilter(props.TodoListID,'active')
                     }}>Active
                     </button>
                     <button className={props.filter === 'completed' ? stl.activeFilter: ''} onClick={() => {
-                        props.changeTodoListFilter('completed')
+                        props.changeTodoListFilter(props.TodoListID,'completed')
                     }}>Completed
                     </button>
                 </div>
