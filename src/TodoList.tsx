@@ -13,12 +13,13 @@ export type TodoListPropsType = {
 
     title: string,
     tasks: Array<TaskType>
-    removeTask: (taskID: string) => void
+    removeTask: (TodoListTD:string, taskID: string) => void
     changeTodoListFilter: (TodoListID: string,filter: FilterValuesType) => void
-    changeIsDone: (Tid:string, isDone: boolean) => void
-    addTask: (title: string) => void
-    filter: FilterValuesType
+    changeIsDone: (TodoListID:string, Tid:string, isDone: boolean) => void
+    addTask: (TodoListID:string, title: string) => void
+    filter: any
     TodoListID: string
+    removeTodoList: (TodoListID:string) => void
 }
 
 const TodoList = (props: TodoListPropsType) => {
@@ -31,7 +32,7 @@ const TodoList = (props: TodoListPropsType) => {
     }
     const addTask = () => {
         if (title.trim() !== "") {
-            props.addTask(title.trim());
+            props.addTask(props.TodoListID,title.trim());
             setTitle('')
         } else {
             setError('Title is required')
@@ -39,7 +40,7 @@ const TodoList = (props: TodoListPropsType) => {
     }
 
     const changeIsDoneHandler = (Tid: string, isDone:boolean) => {
-        props.changeIsDone(Tid,isDone)
+        props.changeIsDone(props.TodoListID,Tid,isDone)
     }
     const taskJsx = props.tasks.map(task => {
 
@@ -49,17 +50,22 @@ const TodoList = (props: TodoListPropsType) => {
                 {/*<input type='checkbox' checked={task.isDone} onChange={(e) => changeIsDoneHandler(task.id, e)}/>*/}
                 <span>{task.title}</span>
                 <button onClick={() => {
-                    props.removeTask(task.id)
+                    props.removeTask(props.TodoListID,task.id)
                 }}>X
                 </button>
             </li>
         )
     })
+    const removeTodoList = () => {
+      props.removeTodoList(props.TodoListID)
+    }
 
     return (
         <div>
             <div>
-                <h3>{props.title}</h3>
+                <h3>{props.title}
+               <button onClick={removeTodoList}>X</button>
+                </h3>
                 <div>
                     <input value={title} onChange={onChangeHandler} className={error ? stl.error : ''}/>
                     <button onClick={addTask}>+</button>
