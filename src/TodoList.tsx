@@ -4,6 +4,7 @@ import stl from './TodoList.module.css'
 import CheckBox from "./component/CheckBox";
 import {AddTaskForm} from "./component/AddTaskForm";
 import {EditableSpan} from "./component/EditableSpan";
+import {Button} from "@material-ui/core";
 
 export type TaskType = {
     id: string,
@@ -64,8 +65,8 @@ const TodoList = (props: TodoListPropsType) => {
         <div>
             <div>
                 <EditableSpan callBack={titleEditHandler} title = {props.title}/>
-               <button onClick={removeTodoList}>X</button>
-
+               {/*<button onClick={removeTodoList}>X</button>*/}
+                <Button variant="contained" color="primary" onClick={removeTodoList}>Primary</Button>
                 <AddTaskForm callBack={addTaskHandler} />
 
                 <div>{taskJsx}</div>
