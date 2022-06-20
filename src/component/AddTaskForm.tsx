@@ -1,10 +1,12 @@
 import React, {ChangeEvent, useState} from 'react';
 import stl from "../TodoList.module.css";
+import {Button, TextField} from "@material-ui/core";
+
 type AddTaskFormType = {
-    callBack:(title: string) => void
+    callBack: (title: string) => void
 }
 
-export const AddTaskForm = (props:AddTaskFormType) => {
+export const AddTaskForm = (props: AddTaskFormType) => {
     let [title, setTitle] = useState<string>('')
     let [error, setError] = useState<string | null>(null)
 
@@ -12,10 +14,10 @@ export const AddTaskForm = (props:AddTaskFormType) => {
         setTitle(e.currentTarget.value)
         setError(null)
     }
-    const OnKeyPressHandler = (event:React.KeyboardEvent<HTMLElement>) => {
-             if (event.key === "Enter") {
-                 addTask()
-             }
+    const OnKeyPressHandler = (event: React.KeyboardEvent<HTMLElement>) => {
+        if (event.key === "Enter") {
+            addTask()
+        }
     }
     const addTask = () => {
         if (title.trim() !== "") {
@@ -27,11 +29,15 @@ export const AddTaskForm = (props:AddTaskFormType) => {
     }
     return (
         <div>
-            <input value={title}
-                   onKeyPress={OnKeyPressHandler}
-                   onChange={onChangeHandler}
-                   className={error ? stl.error : ''}/>
-            <button onClick={addTask}>+</button>
+            <TextField id="outlined-basic" label="Outlined" variant="outlined" size={"small"}
+                       value={title}
+                       onChange={onChangeHandler}
+                       onKeyPress={OnKeyPressHandler}
+                       className={error ? "error" : ""}
+            />
+            <Button variant="contained" color="primary" onClick={addTask}
+                    style={{width: '40px', height: '40px', minWidth: '40px'}}
+            >+</Button>
             {error && <div className={stl.errorMessage}>{error}</div>}
         </div>
     );
