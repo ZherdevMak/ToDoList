@@ -84,7 +84,7 @@ function App() {
         }
     }
 
-    function changeFilter(value: FilterValuesType, todolistId: string) {
+    function changeFilter(todolistId: string,value: FilterValuesType, ) {
         let todolist = todolists.find(tl => tl.id === todolistId);
         if (todolist) {
             todolist.filter = value;
@@ -151,8 +151,8 @@ function App() {
                                 tasksForTodolist = allTodolistTasks.filter(t => t.isDone === true);
                             }
 
-                            return <Grid item>
-                                <Paper style={{padding: "10px"}}>
+                            return <Grid key={v1()} item>
+                                <Paper  style={{padding: "10px"}}>
                                     <Todolist
                                         key={tl.id}
                                         id={tl.id}
